@@ -51,12 +51,19 @@ with open(csvpath) as csvfile:
     # Track the month and amount for the greatest increase and greatest decrease starting with the first month
     greatestincrease = listformonthlychange[0]
     greatestdecrease = listformonthlychange[0]
+    dateofincrease = dateformonthlychange[0]
+    dateofdecrease = dateformonthlychange[0]
     
     for change in range(len(listformonthlychange)):
         # Greatest increase
         if int(listformonthlychange[change]) > greatestincrease:
             greatestincrease = int(listformonthlychange[change])
             dateofincrease = dateformonthlychange[change]
+
+        # Greatest decrease
+        if int(listformonthlychange[change]) < greatestdecrease:
+            greatestdecrease = int(listformonthlychange[change])
+            dateofdecrease = dateformonthlychange[change]
 
 
     # Calculate monthly change per month
@@ -68,3 +75,7 @@ with open(csvpath) as csvfile:
     print(f"Total: ${netprofitorloss}")
     print(f"Average Change: ${averagemonthlychange}")
     print(f"Greatest Increase in Profits: {dateofincrease} (${greatestincrease})")
+    print(f"Greatest Decrease in Profits: {dateofdecrease} (${greatestdecrease})")
+
+# Write CSV file
+outputpath = os.path.join('analysis', 'analysis.csv')
