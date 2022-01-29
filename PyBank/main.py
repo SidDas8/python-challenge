@@ -82,17 +82,16 @@ with open(csvpath) as csvfile:
     print(f"Greatest Increase in Profits: {dateofincrease} (${greatestincrease})")
     print(f"Greatest Decrease in Profits: {dateofdecrease} (${greatestdecrease})")
 
-# Write CSV file
+# Path to CSV file for writing
 outputpath = os.path.join('analysis', 'analysis.txt')
 
+# Write CSV file
 with open(outputpath, 'w', newline='') as outputfile:
-    
-    csvwriter = csv.writer(outputfile, delimiter=',')
 
-    csvwriter.writerow("Financial Analysis")
-    csvwriter.writerow("----------------------------")
-    csvwriter.writerow(f"Total Months: {numberofmonths}")
-    csvwriter.writerow(f"Total: ${netprofitorloss}")
-    csvwriter.writerow(f"Average Change: ${averagemonthlychange}")
-    csvwriter.writerow(f"Greatest Increase in Profits: {dateofincrease} (${greatestincrease})")
-    csvwriter.writerow(f"Greatest Decrease in Profits: {dateofdecrease} (${greatestdecrease})")
+    outputfile.write("Financial Analysis\n")
+    outputfile.write("----------------------------\n")
+    outputfile.write(f"Total Months: {numberofmonths}\n")
+    outputfile.write(f"Total: ${netprofitorloss}\n")
+    outputfile.write(f"Average Change: ${averagemonthlychange}\n")
+    outputfile.write(f"Greatest Increase in Profits: {dateofincrease} (${greatestincrease})\n")
+    outputfile.write(f"Greatest Decrease in Profits: {dateofdecrease} (${greatestdecrease})\n")
