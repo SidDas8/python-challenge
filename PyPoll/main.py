@@ -13,4 +13,14 @@ with open(csvpath) as csvfile:
  
     # Read the header row first
     csvheader = next(csvreader)
-    print(csvheader)
+
+# Create variables to store relevant data
+    numvotescast = 0
+
+    for row in csvreader:
+        numvotescast += 1
+
+    print("Election Results")
+    print("-------------------------")
+    print(f"Total Votes: {numvotescast}")
+    print("-------------------------")
