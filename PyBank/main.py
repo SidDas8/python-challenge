@@ -16,7 +16,7 @@ with open(csvpath) as csvfile:
     
 # Create variables to store relevant data
 
-    # We must read the first row before the loop because the calculation for monthly change must begin from the second row
+    # We must read the first row before the loop because the calculation for monthly and greatest change must begin from the second row
     firstline = next(csvreader)
     firstmonthamount = int(firstline[1])
     firstmonthdate = firstline[0]
@@ -27,14 +27,9 @@ with open(csvpath) as csvfile:
     # Calculation for net amount must include first month's data
     netprofitorloss = firstmonthamount
 
-    # Create lists to track average changes in "Profit/Losses" over the entire period
+    # Create lists to track changes and date in "Profit/Losses" over the entire period
     listformonthlychange = []
-
-    # Track the month and amount for the greatest increase and greatest decrease starting with the first month
-    greatestincrease = firstmonthamount
-    dateofincrease = firstmonthdate
-    greatestdecrease = firstmonthamount
-    dateofdecrease = firstmonthdate
+    dateformonthlychange = []
 
     # Loop through csv file
     for row in csvreader:
@@ -50,10 +45,18 @@ with open(csvpath) as csvfile:
         listformonthlychange.append(monthlychange)
         firstmonthamount = int(row[1])
 
+        # Track dates for greatest increase and greatest decrease of profits
+        dateformonthlychange.append(row[0])
+
+    # Track the month and amount for the greatest increase and greatest decrease starting with the first month
+    greatestincrease = listformonthlychange[0]
+    greatestdecrease = listformonthlychange[0]
+    
+    for change in range(len(listformonthlychange)):
         # Greatest increase
-        if int(row[1]) > greatestincrease:
-            greatestincrease = int(row[1])
-            dateofincrease = row[0]
+        if int(listformonthlychange[change]) > greatestincrease:
+            greatestincrease = int(listformonthlychange[change])
+            dateofincrease = dateformonthlychange[change]
 
 
     # Calculate monthly change per month
