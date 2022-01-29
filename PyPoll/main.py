@@ -20,10 +20,13 @@ with open(csvpath) as csvfile:
     # List for name of candidates
     candidates = []
 
-    # Track the number of votes per candidate using the index
-    # Since its an election, we must know the number of candidates(4)
+    # Track the number of votes per candidate using the index from list of candidates
     votespercandidate = []
 
+    # Track the percentage of votes won per candidate
+    percentagevotes = []
+
+    # Loop through CSV file
     for row in csvreader:
         
         # Count number of votes
@@ -44,9 +47,18 @@ with open(csvpath) as csvfile:
         # Add vote to index of candidate
         votespercandidate[votesindex] += 1
 
+    # Find percentage of votes each candidate won
+    for index in range(len(votespercandidate)):
+        
+        percent = round((votespercandidate[index] / numvotescast) * 100, 3)
+
+        percentagevotes.append(percent)
+
+
     print("Election Results")
     print("-------------------------")
     print(f"Total Votes: {numvotescast}")
     print("-------------------------")
     print(candidates)
     print(votespercandidate)
+    print(percentagevotes)
