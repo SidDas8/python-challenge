@@ -59,6 +59,6 @@ with open(csvpath) as csvfile:
     print("-------------------------")
     print(f"Total Votes: {numvotescast}")
     print("-------------------------")
-    print(candidates)
-    print(votespercandidate)
-    print(percentagevotes)
+    for each in range(len(candidates)):
+        print(f"{candidates[each]}: {percentagevotes[each]}% ({votespercandidate[each]})")
+    
