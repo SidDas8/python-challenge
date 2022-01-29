@@ -4,8 +4,6 @@
 import os
 import csv
 
-from sympy import li
-
 csvpath = os.path.join('Resources', 'budget_data.csv')
 
 with open(csvpath) as csvfile:
@@ -21,6 +19,7 @@ with open(csvpath) as csvfile:
     # We must read the first row before the loop because the calculation for monthly change must begin from the second row
     firstline = next(csvreader)
     firstmonthamount = int(firstline[1])
+    firstmonthdate = firstline[0]
 
     # First month is equal to 1 instead of 0 because the loop starts at the second row
     numberofmonths = 1
@@ -31,18 +30,30 @@ with open(csvpath) as csvfile:
     # Create lists to track average changes in "Profit/Losses" over the entire period
     listformonthlychange = []
 
+    # Track the month and amount for the greatest increase and greatest decrease starting with the first month
+    greatestincrease = firstmonthamount
+    dateofincrease = firstmonthdate
+    greatestdecrease = firstmonthamount
+    dateofdecrease = firstmonthdate
+
+    # Loop through csv file
     for row in csvreader:
 
-        # Calculate total number of months included in the data set
+        # Total number of months included in the data set
         numberofmonths += 1
 
-        # Calculate total amount of "Profit/Losses" over the entire period
+        # Total amount of "Profit/Losses" over the entire period
         netprofitorloss += int(row[1])
 
-        # Calculate average changes in "Profit/Losses" over the entire period
+        # Average changes in "Profit/Losses" over the entire period
         monthlychange = int(row[1]) - firstmonthamount
         listformonthlychange.append(monthlychange)
         firstmonthamount = int(row[1])
+
+        # Greatest increase
+        if int(row[1]) > greatestincrease:
+            greatestincrease = int(row[1])
+            dateofincrease = row[0]
 
 
     # Calculate monthly change per month
@@ -53,3 +64,4 @@ with open(csvpath) as csvfile:
     print(f"Total Months: {numberofmonths}")
     print(f"Total: ${netprofitorloss}")
     print(f"Average Change: ${averagemonthlychange}")
+    print(f"Greatest Increase in Profits: {dateofincrease} (${greatestincrease})")
