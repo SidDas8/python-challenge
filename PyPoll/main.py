@@ -47,12 +47,20 @@ with open(csvpath) as csvfile:
         # Add vote to index of candidate
         votespercandidate[votesindex] += 1
 
-    # Find percentage of votes each candidate won
+    # Create variable to track winner
+    winnervotes = votespercandidate[0]
+    winnername = candidates[0]
+    
     for index in range(len(votespercandidate)):
         
+        # Find percentage of votes each candidate won
         percent = round((votespercandidate[index] / numvotescast) * 100, 3)
-
         percentagevotes.append(percent)
+
+        # Find the winner of the election
+        if votespercandidate[index] > winnervotes:
+
+            winnername = candidates[index]
 
 
     print("Election Results")
@@ -61,4 +69,22 @@ with open(csvpath) as csvfile:
     print("-------------------------")
     for each in range(len(candidates)):
         print(f"{candidates[each]}: {percentagevotes[each]}% ({votespercandidate[each]})")
+    print("-------------------------")
+    print(f"Winner: {winnername}")
+    print("-------------------------")
     
+# Path to CSV file for writing
+outputpath = os.path.join('analysis', 'electiondata_analysis.txt')
+
+# Write CSV file
+with open(outputpath, 'w', newline='') as outputfile:
+
+    outputfile.write("Election Results\n")
+    outputfile.write("-------------------------\n")
+    outputfile.write(f"Total Votes: {numvotescast}\n")
+    outputfile.write("-------------------------\n")
+    for each in range(len(candidates)):
+        outputfile.write(f"{candidates[each]}: {percentagevotes[each]}% ({votespercandidate[each]})\n")
+    outputfile.write("-------------------------\n")
+    outputfile.write(f"Winner: {winnername}\n")
+    outputfile.write("-------------------------\n")
