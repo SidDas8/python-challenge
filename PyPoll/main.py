@@ -62,7 +62,7 @@ with open(csvpath) as csvfile:
 
             winnername = candidates[index]
 
-
+    # Print out results to terminal
     print("Election Results")
     print("-------------------------")
     print(f"Total Votes: {numvotescast}")

@@ -28,7 +28,7 @@ with open(csvpath) as csvfile:
     # Calculation for net amount must include first month's data
     netprofitorloss = firstmonthamount
 
-    # Create lists to track changes and date in "Profit/Losses" over the entire period
+    # Create lists to track monthly change amounts and date in "Profit/Losses" over the entire period
     dateformonthlychange = []
     listformonthlychange = []
 
